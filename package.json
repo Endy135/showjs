@@ -1,0 +1,28 @@
+{
+  "name": "showjs",
+  "version": "1.0.0",
+  "description": "framework de visualisation de données",
+  "main": "",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Endy135/showjs.git"
+  },
+  "keywords": [
+    "qunit",
+    "ayajs",
+    "nodejs"
+  ],
+  "author": "Diane Noungang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Endy135/showjs/issues"
+  },
+  "homepage": "https://github.com/Endy135/showjs#readme" 
+}

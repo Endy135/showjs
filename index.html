@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./build/aya.js"></script>
+    <script src="./src/creator/line.js"></script>
+    <script src="./src/creator/pie.js"></script>
+    <script src="./src/creator.js"></script>
+    <script src="./src/component.js"></script>
+    <title>showjs</title>
+</head>
+<body>
+    <script>
+        var aya = new aya.Init();
+        console.log(aya);
+        var cp = new Component("line","name of graph",{data:[100,100,151,200,251,300,180,180],
+            title:"lines",
+            color:"red",
+            options:{markers:true}});
+        cp.form.draw();
+        cp.form.children.map(({child})=>{
+            child.draw();
+        });
+        console.log(cp);
+        document.body.append(aya.svg);
+    </script>
+</body>
+</html>

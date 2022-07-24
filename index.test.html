@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/qunit@latest/qunit/qunit.css">
+    <link rel="stylesheet" href="../style.css">
+    <script src="./build/aya.js"></script>
+    <script src="./src/creator/line.js"></script>
+    <script src="./src/creator/pie.js"></script>
+    <script src="./src/creator.js"></script>
+    <script src="./src/component.js"></script>
+    <title>showjs</title>
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <div class="scripts">
+        <script>
+            var aya = new aya.Init();
+            console.log(aya);
+            var v_test = 0;
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/qunit@latest"></script>
+        <script src="./test/component.test.js"></script>
+        <script src="./src/creator/test/line.test.js"></script>
+        <script src="./src/creator/test/pie.test.js"></script>
+
+</body>
+</html>
