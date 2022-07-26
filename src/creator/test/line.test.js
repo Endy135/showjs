@@ -56,6 +56,7 @@ QUnit.module("LineChart");
        }
     };
     var cp = new Component("line", "name of component", props);
+    assert.equal(cp.props.options.markers, true, "markers option should be true");
     assert.equal(v_test,cp.props.data.length/2 +1, "line's chart markers drawing");
  });
 
@@ -70,5 +71,6 @@ QUnit.module("LineChart");
        }
     };
     var cp = new Component("line", "name of component", props);
+    assert.equal(cp.props.options.markers, false, "markers option should be false");
     assert.equal(v_test,1, "drawing line chart alone");
- });
+   });

@@ -15,7 +15,11 @@
     <script>
         var aya = new aya.Init();
         console.log(aya);
-        var cp = new Component("line","name of graph",{data:[100,100,151,200,251,300,180,180],
+        var v_test = 0;
+        aya.box.form.children.map(({child}) =>{
+            child.removeFromDOM();
+        });
+        /*var cp = new Component("line","name of graph",{data:[100,100,151,200,251,300,180,180],
             title:"lines",
             color:"red",
             options:{markers:true}});
@@ -23,7 +27,20 @@
         cp.form.children.map(({child})=>{
             child.draw();
         });
-        console.log(cp);
+        console.log(cp);*/
+
+        var cp = new Component("pie", "name of pieChart",  {
+            value:[20,30,15,25,10],
+            label:["un","deux","trois","quatre","cinq"],
+            color:["red","blue","yellow"],
+            name:"pie",
+            options:{
+                type:"donut",
+                caracter:"white_skin",
+                percent_print:true
+            }
+        });
+
         document.body.append(aya.svg);
     </script>
 </body>
