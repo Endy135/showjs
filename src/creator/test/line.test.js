@@ -37,12 +37,12 @@ QUnit.module("LineChart");
           markers:false,
        }
     }
-    var cp = new Component("line","name of component", props);
-    assert.ok(cp.id,"id must be defined as a String by ayas");
-    assert.equal(cp.name,"name of component","component's name");
-    assert.notOk(cp.props.options.markers,"markers must be false");
+    var cp = new Component("line", "name of component", props);
+    assert.ok(cp.id, "id must be defined as a String by ayas");
+    assert.equal(cp.name, "name of component", "component's name");
+    assert.notOk(cp.props.options.markers, "markers must be false");
     assert.equal(cp.form.type, "polyline", "form must be polyline without dots");
-    assert.equal(cp.form.children.length, 0,"the table of children must be empty");
+    assert.equal(cp.form.children.length, 0, "the table of children must be empty");
  });
 
  QUnit.test("draw line chart with markers", (assert) =>{
@@ -57,7 +57,7 @@ QUnit.module("LineChart");
     };
     var cp = new Component("line", "name of component", props);
     assert.equal(cp.props.options.markers, true, "markers option should be true");
-    assert.equal(v_test,cp.props.data.length/2 +1, "line's chart markers drawing");
+    assert.equal(v_test, cp.props.data.length/2 +1, "line's chart markers drawing");
  });
 
  QUnit.test("draw line chart without markers", (assert) =>{

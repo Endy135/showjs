@@ -16,7 +16,7 @@ QUnit.test("component pie's creation",(assert) =>{
       assert.equal(cp.name,"name of component","component's name");
       assert.equal(cp.type,'pie');
       assert.equal(cp.form[0].type,"arc","type must be arc");
-      assert.propEqual(cp.props,props,"props must be defined");
+      assert.propEqual(cp.props, props,"props must be defined");
 });
 
 QUnit.test("all the arcs are concentrated and form a circle", (assert) =>{

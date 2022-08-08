@@ -9,6 +9,8 @@
     <script src="./src/creator/pie.js"></script>
     <script src="./src/creator.js"></script>
     <script src="./src/component.js"></script>
+    <script src="./src/landmark.js"></script>
+    <script src="./src/diagram.js"></script>
     <title>showjs</title>
 </head>
 <body>
@@ -19,17 +21,17 @@
         aya.box.form.children.map(({child}) =>{
             child.removeFromDOM();
         });
-        /*var cp = new Component("line","name of graph",{data:[100,100,151,200,251,300,180,180],
+        /*var cp = new Component("line","name of graph",{data:[100,120,135,140,160,160,170,180,190,195],
             title:"lines",
             color:"red",
-            options:{markers:true}});
+            options:{markers:false}});
         cp.form.draw();
         cp.form.children.map(({child})=>{
             child.draw();
         });
-        console.log(cp);*/
-
-        var cp = new Component("pie", "name of pieChart",  {
+        console.log(cp);
+        */
+       var cp = new Component("pie", "name of pieChart",  {
             value:[20,30,15,25,10],
             label:["un","deux","trois","quatre","cinq"],
             color:["red","blue","yellow"],
