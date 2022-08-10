@@ -215,8 +215,10 @@ QUnit.test("checking the  x position (x and dest_x) of each y_graduations on y_a
     var ld  = new Landmark(10, 10, 5, 13, prop, false, true);
     var y_pas_t = [23, 19.75, 16.5, 13.25];
     ld.y_axis.children.map(({child}, index) =>{
+        if(child.type == "polyline"){ 
         assert.equal(child.x  + child.offsetX, ld.x0 - 3);
         assert.equal(child.dest_x + child.offsetX, ld.x0 + 3);
+        }
     });
 });
 
@@ -235,3 +237,104 @@ QUnit.test("checking the  y position (y and dest_y) of each y_graduations on y_a
     });
 });
 
+QUnit.test("label's creation on x_axis when x is defined and the label is an array of string", (assert) =>{
+    var cpt = 0;
+    var prop = {
+        age : [12, 234, 17, 29],
+        sexe: ["un", "deux", "trois", "quatre"],
+        nom: ['David', 'michel', 'Sarah', 'Paule'],
+        x: "nom"
+    }
+    var ld  = new Landmark(10, 10, 5, 13, prop, true, true);
+    var x_pas_t = [10, 11.25, 12.5, 13.75];
+    assert.equal(typeof prop[prop.x][0], "string", "the type of label must be a string");
+    assert.equal(ld.x_pas.length, prop[prop.x].length, "the number of label must be the number of x_polyline graduation");
+    ld.x_axis.children.map(({child}, index) =>{ 
+        if(child.type == "polyline"){ 
+            assert.equal(child.children.length, 1, "number of child must be 1");
+            assert.equal(child.children[0].child.type, "text", "the type must be a text");
+        }
+    });
+});
+
+QUnit.test("display correctly (set rigth position) the label on x_axis (x option is defined)", (assert) =>{
+    var cpt = 0;
+    var prop = {
+        age : [12, 234, 17, 29],
+        sexe: ["un", "deux", "trois", "quatre"],
+        nom: ['David', 'michel', 'Sarah', 'Paule'],
+        x: "nom"
+    }
+    var ld  = new Landmark(10, 10, 5, 13, prop, true, true);
+    var x_pas_t = [10, 11.25, 12.5, 13.75];
+    ld.x_axis.children.map(({child}, index) => {
+        if(child.type == "polyline"){ 
+            assert.equal(child.children[0].child.type, "text", "the type must be a text");
+            assert.equal(child.children[0].child.x, ld.x_pas[index] - prop[prop.x][index].length*5);
+            assert.equal(child.children[0].child.y, ld.y0 + 15);
+            assert.equal(child.children[0].child.text, prop[prop.x][index], "the child of graduations must be at the right position");
+        }
+    });
+
+});
+
+QUnit.test("display correctly (set rigth position) the label on x_axis (x option is not defined)", (assert) =>{
+    var cpt = 0;
+    var prop = {
+        pays : ["Benin", "Cameroun", "Niger", "Congo"],
+        sexe: ["un", "deux", "trois", "quatre"],
+        nom: ['David', 'michel', 'Sarah', 'Paule'],
+    }
+    var ld  = new Landmark(10, 10, 5, 13, prop, true, true);
+    var x_pas_t = [10, 11.25, 12.5, 13.75];
+    ld.x_axis.children.map(({child}, index) => {
+        if(child.type == "polyline"){ 
+            assert.equal(child.children[0].child.type, "text", "the type must be a text");
+            assert.ok(child.children[0].child.x, ld.x_pas[index] - prop.pays[index].length*5);
+            assert.equal(child.children[0].child.y, ld.y0 + 15);
+            assert.equal(child.children[0].child.text, prop.pays[index], "the child of graduations must be at the right position");
+        }
+    });
+
+});
+
+QUnit.test("reposition the label when its size exceeds the gap between two graduations (x option is defined)", (assert) =>{
+    var cpt = 0;
+    var prop = {
+        pays : ["Benin", "Cameroun", "Niger", "Congo"],
+        sexe: ["un", "deux", "trois", "quatre"],
+        nom: ['David', 'michel', 'Sarah', 'Paule'],
+        x:"sexe"
+    }
+    var ld  = new Landmark(10, 10, 5, 13, prop, true, true);
+    var x_pas_t = [10, 11.25, 12.5, 13.75];
+    for(var index = 0; index <= ld.x_axis.children.length; index++){
+        var child = ld.x_axis.children[index].child;
+        console.log(child);
+        if(child.children[0].child.text.length >= Math.abs(ld.x_pas[index] - ld.x_pas[index + 1])){
+            cpt++;
+            break;
+        }
+    }
+    assert.equal(cpt, 1);
+    ld.x_axis.children.map(({child}, index) =>{
+        assert.equal(child.children[0].child.angle, -45);
+    });
+});
+
+/*
+QUnit.test("display correctly the label on y_axis", (assert) =>{
+    var cpt = 0;
+    var prop = {
+        age : [12, 234, 17, 29],
+        sexe: ["un", "deux", "trois", "quatre"],
+        nom: ['David', 'michel', 'Sarah', 'Paule'],
+        x: "nom"
+    }
+    var ld  = new Landmark(10, 10, 5, 13, prop, true, true);
+    var x_pas_t = [10, 11.25, 12.5, 13.75];
+    ld.x_axis.children.map(({child}, index) => {
+        assert.equal(child.children.child.y, ld.y0 + 4);
+    });
+
+});*/

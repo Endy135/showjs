@@ -12,7 +12,7 @@ class Landmark{
             if(typeof prop[prop.x][0] == "string")
                 this.x_pas_min = this.width / prop[prop.x].length;
             else
-                this.x_pas_min = 10;
+                this.x_pas_min = 1;
         }
         else{
             var key;
@@ -48,16 +48,29 @@ class Landmark{
         this.x_pas = [];
         this.create_y_pas(prop);
         this.create_x_pas(prop);
-        this.create_axis();
+        this.create_axis(prop);
     }
 
-    create_axis(){
+    create_axis(prop){
+        var key_x, key_y, cpt = 0;
+        Object.keys(prop).map((v, index) =>{
+            if(index == 0)
+                key_x = v;
+            if(index == 1)
+                key_y = v;
+        });
+
         this.x_axis = aya.Polyline([this.x0, this.y0, this.x0 + this.width, this.y0]);
         this.y_axis = aya.Polyline([this.x0, this.y0, this.x0, this.y0 - this.height]);
         if(this.display_x_graduations){
             for(var i = 0; i < this.x_pas.length; i++){
                 var pl = aya.Polyline([this.x_pas[i], this.y0 - 3, this.x_pas[i], this.y0 + 3]);
+                if(prop.x)
+                    var text = aya.Text(this.x_pas[i] - prop[prop.x][i].length*5, this.y0 + 15,  prop[prop.x][i]);
+                else
+                    var text = aya.Text(this.x_pas[i] - prop[key_x][i].length*5, this.y0 + 15,  prop[key_x][i]);
                 //var pl = aya.Polyline([0, 0, 0, 0]);
+                pl.addChild(text, (p,c)=>{},null, true);
                 this.x_axis.addChild(pl, (p,c) =>{}, null, true);
             }
         }
@@ -67,6 +80,23 @@ class Landmark{
                 this.y_axis.addChild(pc, (p,c) =>{}, null, true);
             }
         }
+        for(var m of this.x_axis.children){
+            if((m.child.children[0].child.x + m.child.children[0].child.text.length) >= Math.abs(this.x_pas[0] - this.x_pas[1])){
+               console.log(m.child.children[0].child);
+                cpt++;
+                break;
+            }
+        }
+        if(cpt){
+            this.x_axis.children.map(({child}, index) =>{
+                var text = child.children[0].child;
+                text.setRotateAngle(-45);
+                text.setRotateCenter(text.x, text.y);
+                text.redraw();
+            });
+        }
+
+
         this.x_axis.draw();
         this.y_axis.draw();
     }
@@ -84,10 +114,8 @@ class Landmark{
                 while(tmp > this.y_pas_min ){ 
                     tmp = tmp / 2;
                 }
-                console.log(tmp);
                 tmp = tmp*2;
                 y = this.y0;
-                console.log(tmp);
                 for(i = 0; i < (this.height/tmp); i++){
                     this.y_pas[i] = y;
                     y -= tmp;
@@ -106,9 +134,7 @@ class Landmark{
                 tmp = this.height/2;
                 while(tmp > this.y_pas_min)
                     tmp = tmp/2;
-                console.log(tmp);
                 tmp = tmp*2;
-                console.log(tmp);
                 for(i = 0; i < (this.height/tmp); i++){
                     this.y_pas[i] = this.y0 - i*tmp;
                 }
@@ -128,9 +154,7 @@ class Landmark{
                 tmp = this.width/2;
                 while(tmp > this.x_pas_min)
                     tmp = tmp/2;
-                console.log(tmp);
                 tmp = tmp*2;
-                console.log(tmp);
                 for(i = 0; i < (this.width/tmp); i++){
                     this.x_pas[i] = this.x0 + i*tmp;
                 }
@@ -149,9 +173,7 @@ class Landmark{
                 tmp = this.width/2;
                 while(tmp > this.x_pas_min)
                     tmp = tmp/2;
-                console.log(tmp);
                 tmp = tmp*2;
-                console.log(tmp);
                 for(i = 0; i < (this.width/tmp); i++){
                     this.x_pas[i] = this.x0 + i*tmp;
                 }

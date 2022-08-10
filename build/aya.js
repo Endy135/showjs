@@ -3110,7 +3110,7 @@
 
 	        this.x = x;
 	        this.y = y;
-
+			this.type = "text";
 	        this.text = text;
 
 	        this.svg = svg;

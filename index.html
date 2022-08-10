@@ -31,7 +31,7 @@
         });
         console.log(cp);
         */
-      /* var cp = new Component("pie", "name of pieChart",  {
+       /*var cp = new Component("pie", "name of pieChart",  {
             value:[20,30,15,25,10],
             label:["un","deux","trois","quatre","cinq"],
             color:["red","blue","yellow"],
@@ -42,12 +42,11 @@
                 percent_print:true
             }
         });*/
-        var ld = new Landmark(100, 100, 300, 300, {
+        var ld = new Landmark(100, 500, 300, 500, {
             age : [12, 234, 17, 29],
             sexe: ["un", "deux", "trois", "quatre"],
             nom: ['David', 'michel', 'Sarah', 'Paule'],
-            x:"age",
-            y:"sexe"
+            x:"nom"
         }, true, true);
         document.body.append(aya.svg);
     </script>
