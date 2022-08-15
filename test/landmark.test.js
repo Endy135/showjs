@@ -292,14 +292,14 @@ QUnit.test("display correctly (set rigth position) the label on x_axis (x option
             assert.equal(child.children[0].child.type, "text", "the type must be a text");
             assert.ok(child.children[0].child.x, ld.x_pas[index] - prop.pays[index].length*5);
             assert.equal(child.children[0].child.y, ld.y0 + 15);
-            assert.equal(child.children[0].child.text, prop.pays[index], "the child of graduations must be at the right position");
+            assert.equal(child.children[0].child.text, prop.pays[index], "the child of graduations must be at the proper position on x_axis");
         }
     });
 
 });
 
 QUnit.test("reposition the label when its size exceeds the gap between two graduations (x option is defined)", (assert) =>{
-    var cpt = 0;
+    var cpt = 0, p = 0.06;
     var prop = {
         pays : ["Benin", "Cameroun", "Niger", "Congo"],
         sexe: ["un", "deux", "trois", "quatre"],
@@ -318,23 +318,30 @@ QUnit.test("reposition the label when its size exceeds the gap between two gradu
     }
     assert.equal(cpt, 1);
     ld.x_axis.children.map(({child}, index) =>{
+        assert.equal(child.children[0].child.x, ld.x_pas[index] - prop[prop.x][index].length*7);
+        assert.equal(child.children[0].child.y, ld.y0 + child.children[0].child.text.length/(2*p));
         assert.equal(child.children[0].child.angle, -45);
     });
 });
 
-/*
-QUnit.test("display correctly the label on y_axis", (assert) =>{
-    var cpt = 0;
+QUnit.test("display correctly (set right position) the label on y_axis (y option is defined)", (assert) =>{
+    var cpt = 0, p = 0.06;
     var prop = {
         age : [12, 234, 17, 29],
         sexe: ["un", "deux", "trois", "quatre"],
         nom: ['David', 'michel', 'Sarah', 'Paule'],
-        x: "nom"
+        y: "sexe"
     }
-    var ld  = new Landmark(10, 10, 5, 13, prop, true, true);
-    var x_pas_t = [10, 11.25, 12.5, 13.75];
-    ld.x_axis.children.map(({child}, index) => {
-        assert.equal(child.children.child.y, ld.y0 + 4);
+    var ld  = new Landmark(10, 10, 5, 13, prop, false, true);
+    var y_pas_t = [23, 19.75, 16.5, 13.25];
+    assert.equal(typeof prop[prop.y][0], "string", "the type of label must be a string");
+    ld.y_axis.children.map(({child}, index) => {
+        if(child.type == "polyline"){ 
+            assert.equal(child.children[0].child.type, "text", "the type must be a text");
+            assert.equal(child.children[0].child.x, ld.x0 - Math.floor(child.children[0].child.text.length / (2*p)) -15);
+            assert.equal(child.children[0].child.y, ld.y_pas[index]);
+            assert.equal(child.children[0].child.text, prop[prop.y][index], "the child of graduations must be the content of the table prop.y");
+        }
     });
 
-});*/
+});

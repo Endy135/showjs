@@ -52,7 +52,7 @@ class Landmark{
     }
 
     create_axis(prop){
-        var key_x, key_y, cpt = 0;
+        var key_x, key_y, cpt = 0, p = 0.06;
         Object.keys(prop).map((v, index) =>{
             if(index == 0)
                 key_x = v;
@@ -77,6 +77,11 @@ class Landmark{
         if(this.display_y_graduations){
             for(var i = 0; i < this.y_pas.length; i++){
                 var pc = aya.Polyline([this.x0 -3, this.y_pas[i], this.x0 + 3, this.y_pas[i]]);
+                if(prop.y)
+                    var text = aya.Text(this.x0 - Math.floor(prop[prop.y][i].length /(2*p )) -15, this.y_pas[i], prop[prop.y][i]);
+                else
+                    var text = aya.Text(this.x0 - Math.floor(prop[key_y][i].length /(2*p)) -15, this.y_pas[i], prop[key_y][i]);
+                pc.addChild(text, null, null, true);
                 this.y_axis.addChild(pc, (p,c) =>{}, null, true);
             }
         }
@@ -90,6 +95,11 @@ class Landmark{
         if(cpt){
             this.x_axis.children.map(({child}, index) =>{
                 var text = child.children[0].child;
+                if(prop.x)
+                    text.x = this.x_pas[index] - prop[prop.x][index].length*7;
+                else
+                    text.x = this.x_pas[index] - prop[key_x][index].length*7;
+                text.y = this.y0 + text.text.length / (2*p);
                 text.setRotateAngle(-45);
                 text.setRotateCenter(text.x, text.y);
                 text.redraw();
